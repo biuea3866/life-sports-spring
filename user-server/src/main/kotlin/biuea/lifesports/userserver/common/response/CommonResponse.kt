@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 class CommonResponse<T>(
+    success: Boolean,
     data: T?,
     message: String
 ) {
@@ -12,7 +13,7 @@ class CommonResponse<T>(
             body: CommonResponse<T>,
             status: HttpStatus
         ): ResponseEntity<CommonResponse<T>> {
-            return ResponseEntity<CommonResponse<T>>(
+            return ResponseEntity(
                 body,
                 status
             )

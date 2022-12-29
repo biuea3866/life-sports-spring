@@ -13,6 +13,7 @@ class UsersFacadeOutput {
             return CommonResponse.of(
                 status = HttpStatus.CREATED,
                 body = CommonResponse(
+                    success = true,
                     data = userId,
                     message = message
                 )
