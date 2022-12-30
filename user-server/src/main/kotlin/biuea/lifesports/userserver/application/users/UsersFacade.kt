@@ -21,4 +21,9 @@ class UsersFacade(val usersService: UsersService) {
     fun getUserInfo(input: UsersFacadeInput.GetUserInfoV1): UsersFacadeOutput.GetUserInfo {
         return this.usersService.getUsersInfo()
     }
+
+    @AuthorizeUser(grade = [])
+    fun getUserInfo(input: UsersFacadeInput.GetUserInfoV1): UsersFacadeOutput.GetUserInfo {
+        return this.usersService.getUsersInfo()
+    }
 }
