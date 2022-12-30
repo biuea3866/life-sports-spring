@@ -72,16 +72,6 @@ dependencies {
         }
     }
 
-
-    implementation("com.querydsl:querydsl-jpa:4.2.1")
-    implementation("com.querydsl:querydsl-mongodb")
-    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
-    sourceSets.main {
-        withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
-            kotlin.srcDir("$buildDir/generated/querydsl")
-        }
-    }
-
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
