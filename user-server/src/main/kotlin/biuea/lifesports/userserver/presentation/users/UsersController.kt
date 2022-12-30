@@ -1,6 +1,8 @@
 package biuea.lifesports.userserver.presentation.users
 
 import biuea.lifesports.userserver.application.users.UsersFacade
+import biuea.lifesports.userserver.application.users.input.UsersFacadeInput
+import biuea.lifesports.userserver.application.users.output.UsersFacadeOutput
 import biuea.lifesports.userserver.common.response.CommonResponse
 import biuea.lifesports.userserver.presentation.users.request.UsersControllerRequest
 import org.springframework.http.HttpStatus
@@ -29,14 +31,14 @@ class UsersController(val usersFacade: UsersFacade) {
         return output.of()
     }
 
-//    @GetMapping(
-//        value = ["/v1.0"],
-//        produces = ["application/json; charset=utf-8"]
-//    )
-//    @ResponseBody
-//    fun getUser(@RequestHeader("X-User-Id") userId: Int): ResponseEntity<CommonResponse<>> {
-//
-//    }
+    @GetMapping(
+        value = ["/v1.0/user-info"],
+        produces = ["application/json; charset=utf-8"]
+    )
+    @ResponseBody
+    fun getUser(@RequestHeader("X-User-Id") userId: Int): ResponseEntity<CommonResponse<UsersFacadeOutput.GetUserInfo>> {
+        return this.usersFacade.getUserInfo(input = UsersFacadeInput.GetUserInfoV1(userId = userId)).of()
+    }
 //
 //    @PatchMapping(
 //        value = ["/v1.0/info"],

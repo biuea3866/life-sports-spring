@@ -1,5 +1,6 @@
 package biuea.lifesports.userserver.application.users.input
 
+import biuea.lifesports.userserver.common.authorization.input.AuthorizeInput
 import biuea.lifesports.userserver.domain.users.command.UsersServiceCommand
 
 class UsersFacadeInput {
@@ -18,6 +19,12 @@ class UsersFacadeInput {
                 name = this.name,
                 phone = this.phone
             )
+        }
+    }
+
+    class GetUserInfoV1(userId: Int): AuthorizeInput(userId = userId) {
+        fun of(): UsersServiceCommand.GetUserInfoV1 {
+            return UsersServiceCommand.GetUserInfoV1()
         }
     }
 

@@ -20,4 +20,6 @@ class UsersFacadeOutput {
             )
         }
     }
+
+    class GetUserInfo()
 }
