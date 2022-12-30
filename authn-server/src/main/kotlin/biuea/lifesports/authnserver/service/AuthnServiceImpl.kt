@@ -4,6 +4,7 @@ import biuea.lifesports.authnserver.common.exception.NotFoundException
 import biuea.lifesports.authnserver.common.exception.UnauthorizedException
 import biuea.lifesports.authnserver.infrastructure.OpenAPIKeyRepository
 import biuea.lifesports.authnserver.infrastructure.UsersRepository
+import biuea.lifesports.authnserver.service.dto.TokenClaim
 import biuea.lifesports.authnserver.service.entity.User
 import biuea.lifesports.authnserver.service.error.AuthnErrors
 import biuea.lifesports.authnserver.service.result.AuthnServiceResult
@@ -33,14 +34,14 @@ class AuthnServiceImpl(
         )
     }
 
-    private fun parseToken(token: String): AuthnServiceResult.TokenClaim? {
+    private fun parseToken(token: String): TokenClaim? {
         return try {
             Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(jwtKey.toByteArray(Charsets.UTF_8)))
                 .parseClaimsJws(token)
                 .body
                 .let {
-                    AuthnServiceResult.TokenClaim(
+                    TokenClaim(
                         userId = it["userId"] as Long?,
                         email = it["email"] as String?,
                         exp = it["exp"] as Int?,
