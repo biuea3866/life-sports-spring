@@ -6,16 +6,16 @@ import org.springframework.http.ResponseEntity
 
 class UsersFacadeOutput {
     class Signup(
-        val userId: Int,
+        val userId: Long,
         val message: String
     ) {
-        fun of(): ResponseEntity<CommonResponse<Int>> {
+        fun of(): ResponseEntity<CommonResponse<Long>> {
             return CommonResponse.of(
                 status = HttpStatus.CREATED,
                 body = CommonResponse(
                     success = true,
-                    data = userId,
-                    message = message
+                    data = this.userId,
+                    message = this.message
                 )
             )
         }

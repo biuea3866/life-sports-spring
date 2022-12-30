@@ -6,6 +6,9 @@ import biuea.lifesports.userserver.presentation.users.request.UsersControllerReq
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -20,9 +23,30 @@ class UsersController(val usersFacade: UsersFacade) {
         produces = ["application/json; charset=utf-8"]
     )
     @ResponseBody
-    fun signup(@RequestBody body: UsersControllerRequest.SignupV1): ResponseEntity<CommonResponse<Int>> {
+    fun signup(@RequestBody body: UsersControllerRequest.SignupV1): ResponseEntity<CommonResponse<Long>> {
         val output = this.usersFacade.signup(input = body.of())
 
         return output.of()
     }
+
+//    @GetMapping(
+//        value = ["/v1.0"],
+//        produces = ["application/json; charset=utf-8"]
+//    )
+//    @ResponseBody
+//    fun getUser(@RequestHeader("X-User-Id") userId: Int): ResponseEntity<CommonResponse<>> {
+//
+//    }
+//
+//    @PatchMapping(
+//        value = ["/v1.0/info"],
+//        produces = ["application/json; charset=utf-8"]
+//    )
+//    @ResponseBody
+//    fun changeUserInfo(
+//        @RequestHeader("X-User-Id") userId: Int,
+//        @RequestBody body: UsersControllerRequest.ChangeUserInfoV1
+//    ): ResponseEntity<CommonResponse<>> {
+//
+//    }
 }
