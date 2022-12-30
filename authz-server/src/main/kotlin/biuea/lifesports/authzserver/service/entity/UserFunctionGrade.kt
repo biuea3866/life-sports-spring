@@ -4,14 +4,17 @@ import biuea.lifesports.authzserver.service.constants.UserGrade
 import javax.persistence.*
 
 @Entity
-@Table(name = "GradeAuthorities")
-class GradeAuthority(
+@Table(name = "UserFunctionGrades")
+class UserFunctionGrade(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L,
 
-    var functionName: String,
+    var grade: UserGrade,
 
-    var userGrade: UserGrade
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("user_function_id")
+    @JoinColumn(name = "user_function_id")
+    var userFunction: UserFunction
 ) {
 }

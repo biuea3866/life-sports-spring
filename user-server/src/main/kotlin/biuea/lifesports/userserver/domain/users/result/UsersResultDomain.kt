@@ -3,10 +3,14 @@ package biuea.lifesports.userserver.domain.users.result
 import biuea.lifesports.userserver.domain.users.constants.UserGrade
 import biuea.lifesports.userserver.domain.users.constants.UserStatus
 import biuea.lifesports.userserver.domain.users.entity.User
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.ZonedDateTime
 
 class UsersResultDomain {
-    class UserDomain(val user: User) {
+    class UserDomain(
+        @JsonIgnore
+        private val user: User
+    ) {
         val id: Long = this.user.id
         val email: String = this.user.email
         val nickname: String = this.user.nickname

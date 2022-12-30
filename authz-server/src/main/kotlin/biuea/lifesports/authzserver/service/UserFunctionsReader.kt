@@ -2,8 +2,8 @@ package biuea.lifesports.authzserver.service
 
 import biuea.lifesports.authzserver.service.constants.UserGrade
 
-interface GradeAuthoritiesReader {
-    fun isValidGrade(
+interface UserFunctionsReader {
+    fun isValidFunction(
         grade: UserGrade,
         functionName: String
     )

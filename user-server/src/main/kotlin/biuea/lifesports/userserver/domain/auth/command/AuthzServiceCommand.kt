@@ -1,10 +1,17 @@
 package biuea.lifesports.userserver.domain.auth.command
 
-import biuea.lifesports.userserver.domain.users.constants.UserGrade
+import biuea.lifesports.grpc.authz.AuthzEvent
 
 class AuthzServiceCommand {
     class GetAuthorizationUser(
-        val userId: Int,
-        val grades: List<UserGrade>
-    )
+        val userId: Long,
+        val functionName: String
+    ) {
+        fun of(): AuthzEvent.GetAuthorizationUser {
+            return AuthzEvent.GetAuthorizationUser.newBuilder()
+                .setUserId(this.userId)
+                .setFunctionName(this.functionName)
+                .build()
+        }
+    }
 }

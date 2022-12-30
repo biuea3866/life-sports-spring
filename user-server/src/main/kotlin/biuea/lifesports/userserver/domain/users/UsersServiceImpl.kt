@@ -23,4 +23,9 @@ class UsersServiceImpl(
 
         return UsersServiceResult.SignupV1(user = UsersResultDomain.UserDomain(user = user))
     }
+
+    @Transactional
+    override fun getUsersInfo(command: UsersServiceCommand.GetUserInfoV1): UsersServiceResult.GetUserInfo {
+        return UsersServiceResult.GetUserInfo(user = UsersResultDomain.UserDomain(user = this.usersReader.getUserInfo(userId = command.userId)))
+    }
 }

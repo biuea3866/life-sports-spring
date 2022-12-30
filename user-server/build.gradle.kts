@@ -17,6 +17,16 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    repositories {
+        mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/biuea3866/life-sports-grpc-repo")
+            credentials {
+                username = System.getenv("LIFE_SPORTS_USERNAME")
+                password = System.getenv("LIFE_SPORTS_TOKEN")
+            }
+        }
+    }
 }
 
 buildscript {
@@ -50,6 +60,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+
+    implementation("biuea.lifesports:grpc-repo:0.3.8")
 
     // GRPC Dependencies
     implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")

@@ -22,9 +22,9 @@ class UsersFacadeInput {
         }
     }
 
-    class GetUserInfoV1(userId: Int): AuthorizeInput(userId = userId) {
+    class GetUserInfoV1(userId: Long): AuthorizeInput(userId = userId) {
         fun of(): UsersServiceCommand.GetUserInfoV1 {
-            return UsersServiceCommand.GetUserInfoV1()
+            return UsersServiceCommand.GetUserInfoV1(userId = this.userId)
         }
     }
 

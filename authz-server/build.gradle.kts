@@ -64,7 +64,7 @@ dependencies {
 
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 
-    implementation("biuea.lifesports:grpc-repo:0.3.3")
+    implementation("biuea.lifesports:grpc-repo:0.3.8")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

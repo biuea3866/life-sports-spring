@@ -1,5 +1,5 @@
 package biuea.lifesports.userserver.common.authorization.annotation
 
-import biuea.lifesports.userserver.domain.users.constants.UserGrade
+import biuea.lifesports.userserver.common.authorization.constants.FunctionName
 
-annotation class AuthorizeUser(val grade: Array<UserGrade> = [])
+annotation class AuthorizeUser(val functionName: Array<FunctionName> = [])

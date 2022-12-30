@@ -31,5 +31,5 @@ class UsersServiceCommand {
         }
     }
 
-    class GetUserInfoV1()
+    class GetUserInfoV1(val userId: Long)
 }

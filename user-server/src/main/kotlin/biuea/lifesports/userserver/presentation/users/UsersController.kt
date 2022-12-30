@@ -36,7 +36,7 @@ class UsersController(val usersFacade: UsersFacade) {
         produces = ["application/json; charset=utf-8"]
     )
     @ResponseBody
-    fun getUser(@RequestHeader("X-User-Id") userId: Int): ResponseEntity<CommonResponse<UsersFacadeOutput.GetUserInfo>> {
+    fun getUser(@RequestHeader("X-User-Id") userId: Long): ResponseEntity<CommonResponse<UsersFacadeOutput.GetUserInfo>> {
         return this.usersFacade.getUserInfo(input = UsersFacadeInput.GetUserInfoV1(userId = userId)).of()
     }
 //

@@ -1,7 +1,12 @@
 package biuea.lifesports.userserver.common.authorization.aspect
 
 import biuea.lifesports.authnserver.common.exception.ForbiddenException
+import biuea.lifesports.userserver.common.authorization.annotation.AuthorizeUser
+import biuea.lifesports.userserver.common.authorization.constants.FunctionName
 import biuea.lifesports.userserver.common.authorization.input.AuthorizeInput
+import biuea.lifesports.userserver.domain.auth.AuthzService
+import biuea.lifesports.userserver.domain.auth.command.AuthzServiceCommand
+import biuea.lifesports.userserver.domain.auth.result.AuthzServiceResult
 import biuea.lifesports.userserver.domain.users.constants.UserGrade
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -9,7 +14,7 @@ import org.aspectj.lang.annotation.Pointcut
 import org.aspectj.lang.reflect.MethodSignature
 import java.lang.reflect.Method
 
-class AuthorizeUserAspect {
+class AuthorizeUserAspect(val authzService: AuthzService) {
     @Pointcut("@annotation(biuea.lifesports.userserver.common.authorization.annotation.AuthorizeUser)")
     fun cut() {
     }
@@ -21,48 +26,40 @@ class AuthorizeUserAspect {
 
         this.checkAuthorizationInput(input = input)
 
-        val grades = annotation.grades
-        val authResult = this.getWorkspaceFunctionAuthorizations(
-            functions = functions,
-            userId = authorizationInput.userId,
-            workspaceId = authorizationInput.workspaceId
+        val functionName = annotation.functionName.first()
+        val authResult = this.getUserAuthorizations(
+            functionName = functionName,
+            userId = input!!.userId
         )
+        val index = joinPoint.args.indexOfFirst { it is AuthzServiceResult.GetAuthorizationUser }
 
-        authResult.workspaceFunctionAuthorizations
-            .filter { it.isEssential }
-            .forEach { if (!it.isAuthorized) throw ForbiddenException("Not authorized - ${it.functionName}") }
-
-        if (joinPoint.args[joinPoint.args.size - 1]::class.java == AuthServiceResult.WorkspaceFunctionAuthorizations::class.java) {
-            joinPoint.args[joinPoint.args.size - 1] = authResult
-        }
+        if (index != -1) joinPoint.args[index] = authResult
 
         return joinPoint.proceed(joinPoint.args)
     }
 
     private fun checkAuthorizationInput(input: AuthorizeInput?) {
-        if (input !is AuthorizeInput || input.userId == 0) {
+        if (input !is AuthorizeInput || input.userId == 0L) {
             throw IllegalArgumentException("Input must be AuthorizationInput")
         }
     }
 
     private fun getUserAuthorizations(
-        grades: Array<UserGrade>,
-        userId: Int,
-        workspaceId: Int
-    ): AuthServiceResult.WorkspaceFunctionAuthorizations {
-        return this.authzService.getWorkspaceFunctionAuthorizations(
-            AuthServiceCommand.GetWorkspaceFunctionAuthorizationsByUserId(
+        functionName: FunctionName,
+        userId: Long
+    ): AuthzServiceResult.GetAuthorizationUser {
+        return this.authzService.getAuthorizationUser(
+            AuthzServiceCommand.GetAuthorizationUser(
                 userId = userId,
-                workspaceId = workspaceId,
-                functions = functions
+                functionName = functionName.name
             )
         )
     }
 
-    private fun getAnnotation(joinPoint: ProceedingJoinPoint): AuthorizeWorkspaceFunction {
+    private fun getAnnotation(joinPoint: ProceedingJoinPoint): AuthorizeUser {
         val signature: MethodSignature = joinPoint.signature as MethodSignature
         val method: Method = signature.method
 
-        return method.getAnnotation(AuthorizeWorkspaceFunction::class.java)
+        return method.getAnnotation(AuthorizeUser::class.java)
     }
 }
