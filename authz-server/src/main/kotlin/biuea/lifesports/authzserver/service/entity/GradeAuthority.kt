@@ -1,5 +1,6 @@
 package biuea.lifesports.authzserver.service.entity
 
+import biuea.lifesports.authzserver.service.constants.UserGrade
 import javax.persistence.*
 
 @Entity
@@ -9,6 +10,8 @@ class GradeAuthority(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0L,
 
-    @
+    var functionName: String,
+
+    var userGrade: UserGrade
 ) {
 }

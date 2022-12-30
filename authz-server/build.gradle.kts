@@ -30,8 +30,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/biuea3866/life-sports-grpc-repo")
         credentials {
-            username = "biuea3866"
-            password = "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"
+            username = System.getenv("LIFE_SPORTS_USERNAME")
+            password = System.getenv("LIFE_SPORTS_TOKEN")
         }
     }
 }
@@ -64,7 +64,7 @@ dependencies {
 
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 
-    implementation("biuea.lifesports:grpc-repo:0.3.1")
+    implementation("biuea.lifesports:grpc-repo:0.3.3")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

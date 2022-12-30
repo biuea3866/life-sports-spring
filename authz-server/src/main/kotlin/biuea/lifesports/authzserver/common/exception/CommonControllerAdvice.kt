@@ -1,5 +1,6 @@
 package biuea.lifesports.authzserver.common.exception
 
+import biuea.lifesports.authzserver.common.response.CommonResponse
 import java.net.BindException
 import org.slf4j.LoggerFactory
 import org.springframework.beans.ConversionNotSupportedException
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import org.springframework.web.multipart.support.MissingServletRequestPartException
 import org.springframework.web.servlet.NoHandlerFoundException
+import javax.validation.ConstraintViolationException
+import javax.validation.ValidationException
 
 @ControllerAdvice
 class CommonControllerAdvice {

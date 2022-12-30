@@ -36,4 +36,7 @@ class User(
 
     @Column(name = "last_login_at")
     var lastLoginAt: ZonedDateTime? = null,
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, orphanRemoval = true)
+    var gradeAuthorities: MutableList<GradeAuthority> = mutableListOf()
 )

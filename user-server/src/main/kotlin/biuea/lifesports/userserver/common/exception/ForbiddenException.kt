@@ -1,6 +1,7 @@
 package biuea.lifesports.authnserver.common.exception
 
 import biuea.lifesports.userserver.common.exception.BaseException
+import biuea.lifesports.userserver.common.exception.CommonError
 import org.springframework.http.HttpStatus
 
 class ForbiddenException : BaseException {

@@ -1,6 +1,5 @@
 package biuea.lifesports.userserver.common.exception
 
-import biuea.lifesports.authnserver.common.exception.CommonError
 import org.springframework.http.HttpStatus
 
 class BadGatewayException : BaseException {
